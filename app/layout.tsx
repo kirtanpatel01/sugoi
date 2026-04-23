@@ -11,6 +11,11 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
+export const metadata = {
+  title: "Sugoi UI",
+  description: "A modern component library built with Next.js and Tailwind CSS.",
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{

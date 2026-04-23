@@ -10,10 +10,12 @@ function Header() {
     { name: 'Home', href: '/' },
     { name: "Components", href: '/components' },
   ]
-  const pathname = usePathname();
-  console.log(pathname)
+  const pathname = usePathname() ?? "/"
+  const activeRoute = pathname.split("/")[1] ?? ""
+  const activePath = activeRoute ? `/${activeRoute}` : "/"
+
   return (
-    <header className='sticky top-0 w-full flex justify-between items-center p-3 backdrop-blur-lg'>
+    <header className='sticky top-0 z-50 flex h-16 w-full items-center justify-between px-4 backdrop-blur-lg border-b'>
       <div className='flex items-center gap-8'>
         <Link href={"/"}>
           <h2 className='text-2xl font-bold font-serif text-primary'>Sugoi</h2>
@@ -24,7 +26,10 @@ function Header() {
               <li key={link.name}>
                 <Link 
                   href={link.href} 
-                  className={cn('font-medium px-2 py-1 hover:text-primary transition-colors duration-200', pathname === link.href && 'text-primary bg-secondary')}
+                  className={cn(
+                    'font-medium px-2 py-1 hover:text-primary transition-colors duration-200', 
+                    activePath === link.href && 'text-primary bg-secondary/30'
+                  )}
                 >
                   {link.name}
                 </Link>
