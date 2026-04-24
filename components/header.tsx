@@ -15,7 +15,7 @@ function Header() {
   const activePath = activeRoute ? `/${activeRoute}` : "/"
 
   return (
-    <header className='sticky top-0 z-50 flex h-16 w-full items-center justify-between px-4 backdrop-blur-lg border-b'>
+    <header className='sticky top-0 z-50 flex h-16 w-full items-center justify-between px-4 backdrop-blur-xl border-b bg-background/70'>
       <div className='flex items-center gap-8'>
         <Link href={"/"}>
           <h2 className='text-2xl font-bold font-serif text-primary'>Sugoi</h2>
@@ -27,7 +27,7 @@ function Header() {
                 <Link 
                   href={link.href} 
                   className={cn(
-                    'font-medium px-2 py-1 hover:text-primary transition-colors duration-200', 
+                    'font-medium px-2 py-1 hover:text-primary transition-colors duration-200 rounded-md', 
                     activePath === link.href && 'text-primary bg-secondary/30'
                   )}
                 >

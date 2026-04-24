@@ -1,10 +1,12 @@
-import { Geist_Mono, Inter } from "next/font/google"
+import { Geist_Mono, Inter, Noto_Sans, Geist } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 import Header from "@/components/header";
 import "./globals.css";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
+const geistHeading = Geist({subsets:['latin'],variable:'--font-heading'});
+
+const notoSans = Noto_Sans({subsets:['latin'],variable:'--font-sans'})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -25,7 +27,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
+      className={cn("antialiased", fontMono.variable, "font-sans", notoSans.variable, geistHeading.variable)}
     >
       <body>
         <ThemeProvider>
