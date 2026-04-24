@@ -6,7 +6,7 @@ type HeroSectionNode = {
   content: React.ReactNode;
 };
 
-function HeroSectionIMG({
+export default function HeroImageCallouts({
   image: {
     src,
     alt,
@@ -54,5 +54,3 @@ function HeroSectionIMG({
     </div>
   )
 }
-
-export default HeroSectionIMG
