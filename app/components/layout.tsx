@@ -12,7 +12,7 @@ function layout({ children }: {children: React.ReactNode }) {
       } as React.CSSProperties}
     >
       <ComponentSidebar />
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset className='max-w-7xl mx-auto w-full'>{children}</SidebarInset>
     </SidebarProvider>
   )
 }

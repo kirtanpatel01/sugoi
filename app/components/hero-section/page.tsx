@@ -10,6 +10,7 @@ function page() {
       href: "/components/hero-section/hero-image-callouts"
     },
   ]
+  
   return (
     <div className="p-4">
       <h1 className="mb-4 text-2xl font-bold">Hero Section</h1>

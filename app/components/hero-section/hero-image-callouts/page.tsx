@@ -1,4 +1,6 @@
 import HeroImageCallouts from '@/components/custom/hero-image-callouts'
+import { HighlightedCodeBox } from '@/components/common/highlighted-code-box'
+import { PropsTable } from '@/components/common/props-table'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,13 +9,26 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
+import { ComponentPreview } from '@/components/common/component-preview'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { animatedNodes, combinedNodes, draggableNodes, nodes } from './data'
+import {
+  fixedPositionUsageCode,
+  draggableUsageCode,
+  animatedUsageCode,
+  combinedUsageCode,
+} from './code-examples'
+import { heroImageCalloutsPropGroups } from './data'
 
-function page() {
+async function page() {
+  const heroImageCalloutsPath = path.join(process.cwd(), 'components', 'custom', 'hero-image-callouts.tsx')
+  const fixedPositionCode = await readFile(heroImageCalloutsPath, 'utf-8')
+
   return (
     <div className='p-4 space-y-6'>
       <header>
-        <Breadcrumb className='bg-secondary/20 rounded-full w-fit border p-2'>
+        <Breadcrumb className='bg-secondary/20 rounded-full w-fit border px-3 py-2'>
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/components">Components</BreadcrumbLink>
@@ -41,16 +56,23 @@ function page() {
             </p>
           </div>
 
-          <HeroImageCallouts
-            image={{
-              src: "https://i.pinimg.com/1200x/c8/16/1b/c8161b685b3848fe8804be950ddbd02b.jpg",
-              alt: "Hero Image",
-              width: 400,
-              classNmame: "rounded-2xl"
-            }}
-            nodes={nodes}
-            className="mx-auto"
-          />
+          <ComponentPreview code={fixedPositionCode} lang="tsx">
+            <HeroImageCallouts
+              image={{
+                src: "https://i.pinimg.com/1200x/c8/16/1b/c8161b685b3848fe8804be950ddbd02b.jpg",
+                alt: "Hero Image",
+                width: 400,
+                classNmame: "rounded-2xl"
+              }}
+              nodes={nodes}
+              className="mx-auto"
+            />
+          </ComponentPreview>
+
+          <div className='space-y-2'>
+            <h2 className='text-sm font-medium'>Usage Example</h2>
+            <HighlightedCodeBox code={fixedPositionUsageCode} lang="tsx" />
+          </div>
         </section>
 
         <section className='space-y-4'>
@@ -63,16 +85,22 @@ function page() {
             </p>
           </div>
 
-          <HeroImageCallouts
-            image={{
-              src: "https://i.pinimg.com/1200x/c8/16/1b/c8161b685b3848fe8804be950ddbd02b.jpg",
-              alt: "Hero Image",
-              width: 400,
-              classNmame: "rounded-2xl"
-            }}
-            nodes={draggableNodes}
-            className="mx-auto"
-          />
+          <div className='rounded-lg border p-6 bg-background/50'>
+            <div className='flex items-center justify-center min-h-100'>
+              <HeroImageCallouts
+                image={{
+                  src: "https://i.pinimg.com/1200x/c8/16/1b/c8161b685b3848fe8804be950ddbd02b.jpg",
+                  alt: "Hero Image",
+                  width: 400,
+                  classNmame: "rounded-2xl"
+                }}
+                nodes={draggableNodes}
+                className="mx-auto"
+              />
+            </div>
+          </div>
+
+          <HighlightedCodeBox code={draggableUsageCode} lang="tsx" />
         </section>
 
         <section className='space-y-4'>
@@ -85,16 +113,22 @@ function page() {
             </p>
           </div>
 
-          <HeroImageCallouts
-            image={{
-              src: "https://i.pinimg.com/1200x/c8/16/1b/c8161b685b3848fe8804be950ddbd02b.jpg",
-              alt: "Hero Image",
-              width: 400,
-              classNmame: "rounded-2xl"
-            }}
-            nodes={animatedNodes}
-            className="mx-auto"
-          />
+          <div className='rounded-lg border p-6 bg-background/50'>
+            <div className='flex items-center justify-center min-h-100'>
+              <HeroImageCallouts
+                image={{
+                  src: "https://i.pinimg.com/1200x/c8/16/1b/c8161b685b3848fe8804be950ddbd02b.jpg",
+                  alt: "Hero Image",
+                  width: 400,
+                  classNmame: "rounded-2xl"
+                }}
+                nodes={animatedNodes}
+                className="mx-auto"
+              />
+            </div>
+          </div>
+
+          <HighlightedCodeBox code={animatedUsageCode} lang="tsx" />
         </section>
 
         <section className='space-y-4'>
@@ -107,16 +141,35 @@ function page() {
             </p>
           </div>
 
-          <HeroImageCallouts
-            image={{
-              src: "https://i.pinimg.com/1200x/c8/16/1b/c8161b685b3848fe8804be950ddbd02b.jpg",
-              alt: "Hero Image",
-              width: 400,
-              classNmame: "rounded-2xl"
-            }}
-            nodes={combinedNodes}
-            className="mx-auto"
-          />
+          <div className='rounded-lg border p-6 bg-background/50'>
+            <div className='flex items-center justify-center min-h-100'>
+              <HeroImageCallouts
+                image={{
+                  src: "https://i.pinimg.com/1200x/c8/16/1b/c8161b685b3848fe8804be950ddbd02b.jpg",
+                  alt: "Hero Image",
+                  width: 400,
+                  classNmame: "rounded-2xl"
+                }}
+                nodes={combinedNodes}
+                className="mx-auto"
+              />
+            </div>
+          </div>
+
+          <HighlightedCodeBox code={combinedUsageCode} lang="tsx" />
+        </section>
+
+        <section className='space-y-4'>
+          <div className='max-w-2xl'>
+            <h1 className='text-2xl font-semibold tracking-tight'>
+              Props Reference
+            </h1>
+            <p className='mt-2 text-sm text-muted-foreground'>
+              A quick reference for the props you can pass to Hero Image Callouts.
+            </p>
+          </div>
+
+          <PropsTable groups={heroImageCalloutsPropGroups} />
         </section>
       </main>
     </div>

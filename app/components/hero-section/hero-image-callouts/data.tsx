@@ -1,3 +1,5 @@
+import type { PropsTableGroup } from '@/components/common/props-table'
+import { HeroSectionNode } from '@/components/custom/hero-image-callouts'
 import { IconCircleCheckFilled, IconPlus } from '@tabler/icons-react'
 
 export const nodes = [
@@ -115,7 +117,7 @@ export const draggableNodes = [
   },
 ]
 
-export const animatedNodes = [
+export const animatedNodes: HeroSectionNode[] = [
   {
     position: { top: 18, left: 18 },
     content: (
@@ -135,6 +137,11 @@ export const animatedNodes = [
       </div>
     ),
     isAnimated: true,
+    animate: {
+      speed: 50,
+      direction: "down-left",
+      bounce: true
+    }
   },
   {
     position: { top: 68, left: 28 },
@@ -211,5 +218,166 @@ export const combinedNodes = [
         </div>
       </div>
     ),
+  },
+]
+
+export const heroImageCalloutsPropGroups: PropsTableGroup[] = [
+  {
+    title: 'HeroImageCallouts Props',
+    rows: [
+      {
+        prop: 'image',
+        type: `{
+  src: string;
+  alt: string;
+  height?: number;
+  width?: number;
+  classNmame?: string;
+}`,
+        required: true,
+        description: 'Defines the background image that the callouts are positioned on.',
+      },
+      {
+        prop: 'nodes',
+        type: 'HeroSectionNode[]',
+        required: false,
+        description: 'An array of callout nodes rendered on top of the image.',
+      },
+      {
+        prop: 'className',
+        type: 'string',
+        required: false,
+        description: 'Adds custom classes to the outer wrapper.',
+      },
+    ],
+    children: [
+      {
+        title: 'image object props',
+        rows: [
+          {
+            prop: 'src',
+            type: 'string',
+            required: true,
+            description: 'The image URL or path used as the background image.',
+          },
+          {
+            prop: 'alt',
+            type: 'string',
+            required: true,
+            description: 'The alt text for the image.',
+          },
+          {
+            prop: 'height',
+            type: 'number',
+            required: false,
+            description: 'Optional image height in pixels.',
+          },
+          {
+            prop: 'width',
+            type: 'number',
+            required: false,
+            description: 'Optional image width in pixels.',
+          },
+          {
+            prop: 'classNmame',
+            type: 'string',
+            required: false,
+            description: 'Adds custom classes to the image element.',
+          },
+        ],
+      },
+      {
+        title: 'nodes array item props (HeroSectionNode)',
+        rows: [
+          {
+            prop: 'position',
+            type: `{
+  top: number;
+  left: number;
+}`,
+            required: true,
+            description: 'Sets the node position as percentage offsets from the image container.',
+          },
+          {
+            prop: 'content',
+            type: 'React.ReactNode',
+            required: true,
+            description: 'The UI rendered inside the callout node.',
+          },
+          {
+            prop: 'isDraggable',
+            type: 'boolean',
+            required: false,
+            description: 'Makes the node draggable when true.',
+          },
+          {
+            prop: 'isAnimated',
+            type: 'boolean',
+            required: false,
+            description: 'Enables the built-in movement animation when true.',
+          },
+          {
+            prop: 'animate',
+            type: `{
+  speed?: number;
+  direction?:
+    | "up-right"
+    | "up-left"
+    | "down-right"
+    | "down-left";
+  bounce?: boolean;
+}`,
+            required: false,
+            description: 'Configures the automatic animation behavior for the node.',
+          },
+        ],
+        children: [
+          {
+            title: 'position object props',
+            rows: [
+              {
+                prop: 'top',
+                type: 'number',
+                required: true,
+                description: 'Vertical position of the node in percentage units.',
+              },
+              {
+                prop: 'left',
+                type: 'number',
+                required: true,
+                description: 'Horizontal position of the node in percentage units.',
+              },
+            ],
+          },
+          {
+            title: 'animate object props',
+            rows: [
+              {
+                prop: 'speed',
+                type: 'number',
+                required: false,
+                description: 'Controls how fast the node moves when animated.',
+              },
+              {
+                prop: 'direction',
+                type: `"up-right"
+  | "up-left"
+  | "down-right"
+  | "down-left"
+`,
+                required: false,
+                description: 'Sets the diagonal direction for animated movement.',
+              },
+              {
+                prop: 'bounce',
+                type: 'boolean',
+                required: false,
+                description: 'Makes the node reverse direction when it reaches an edge.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
 ]

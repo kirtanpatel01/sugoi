@@ -12,7 +12,7 @@ type NodeAnimation = {
   bounce?: boolean;
 };
 
-type HeroSectionNode = {
+export type HeroSectionNode = {
   position: { top: number; left: number };
   content: React.ReactNode;
   isDraggable?: boolean
