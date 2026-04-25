@@ -31,8 +31,8 @@ function ComponentSidebar() {
           href: "/components/hero-section/hero-image-callouts"
         },
         {
-          name: "Hero with Background",
-          href: "/components/hero-section/hero-with-background"
+          name: "Git Saturn",
+          href: "/components/hero-section/git-saturn"
         },
       ],
     },
@@ -49,7 +49,7 @@ function ComponentSidebar() {
   return (
     <Sidebar
       style={{
-        top: '4rem',
+        top: '3rem',
         bottom: 'auto',
         height: 'calc(100svh - 4rem)',
       }}
