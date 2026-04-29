@@ -4,8 +4,8 @@ import { OrbitControls } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import React from 'react'
 import * as THREE from 'three'
-import { SaturnPlanet } from '@/components/custom/git-saturn/git-saturn-planet'
-import type { GitSaturnRepo } from './types'
+import { SaturnPlanet } from './git-saturn-planet'
+import type { GitSaturnRepo } from '@/app/components/hero-section/git-saturn/types'
 import { RepoRing } from './repo-ring'
 import { StarField } from './star-field'
 import { useThree } from '@react-three/fiber'
@@ -35,6 +35,7 @@ export function SaturnScene({
   const repoCount = repos.length
   const ringRadius = 1.95 + clamp(repoCount * 0.02, 0, 0.8)
   const spinSpeed = 0.08 + repoCount * 0.003
+  const shouldPauseSpin = focusedRepo !== null && !focusLocked
 
   useFrame(({ clock }, delta) => {
     if (!systemRef.current) return
@@ -64,7 +65,9 @@ export function SaturnScene({
       controlsRef.current.update()
     }
 
-    systemRef.current.rotation.y += delta * spinSpeed
+    if (!shouldPauseSpin) {
+      systemRef.current.rotation.y += delta * spinSpeed
+    }
   })
 
   return (

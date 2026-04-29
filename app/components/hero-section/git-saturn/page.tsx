@@ -12,27 +12,50 @@ import {
 } from '@/components/ui/breadcrumb'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
-import { demoGitSaturnData, gitSaturnPropGroups } from './data'
+import { gitSaturnPropGroups } from './props-data'
 import { gitSaturnUsageCode } from './code-examples'
+import { getGitSaturnDataAction } from './actions'
+
+const gitSaturnDocsFiles = [
+  { path: 'components/custom/git-saturn/index.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'app/components/hero-section/git-saturn/types.ts', lang: 'ts', group: 'Data Layer' },
+  { path: 'components/custom/git-saturn/saturn-scene.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'components/custom/git-saturn/repo-ring.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'components/custom/git-saturn/star-field.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'components/custom/git-saturn/git-saturn-planet.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'components/custom/git-saturn/git-meteoroid.tsx', lang: 'tsx', group: 'Component' },
+  {
+    path: 'app/components/hero-section/git-saturn/github-data.ts',
+    lang: 'ts',
+    runtime: 'server' as const,
+    group: 'Data Layer',
+  },
+  {
+    path: 'app/components/hero-section/git-saturn/actions.ts',
+    lang: 'ts',
+    runtime: 'server' as const,
+    group: 'Server Action',
+  },
+]
 
 async function page() {
-  const sourceFiles = [
-    'components/custom/git-saturn/index.tsx',
-    'components/custom/git-saturn/types.ts',
-    'components/custom/git-saturn/saturn-scene.tsx',
-    'components/custom/git-saturn/repo-ring.tsx',
-    'components/custom/git-saturn/star-field.tsx',
-    'components/custom/git-saturn/git-saturn-planet.tsx',
-    'components/custom/git-saturn/git-meteoroid.tsx',
-  ]
-
   const files = await Promise.all(
-    sourceFiles.map(async (filePath) => {
-      const absolutePath = path.join(process.cwd(), ...filePath.split('/'))
+    gitSaturnDocsFiles.map(async (file) => {
+      const absolutePath = path.join(process.cwd(), ...file.path.split('/'))
       const code = await readFile(absolutePath, 'utf-8')
-      return { path: filePath, code }
+      return {
+        path: file.path,
+        code,
+        lang: file.lang,
+        badge: file.runtime === 'server' ? 'Server' : undefined,
+        group: file.group,
+      }
     })
   )
+
+  const saturnData = await getGitSaturnDataAction({
+    includeCommitCounts: true,
+  })
 
   return (
     <div className='p-4 space-y-6'>
@@ -58,23 +81,32 @@ async function page() {
         <section className='space-y-4'>
           <div className='max-w-2xl'>
             <h1 className='text-2xl font-semibold tracking-tight'>Git Saturn</h1>
-            <p className='mt-2 text-sm text-muted-foreground'>
-                A hero visual that turns GitHub repositories into a true 3D Saturn scene where each repo becomes an orbiting meteoroid.
+            <p className='mt-2 text-base '>
+              A hero visual that turns GitHub repositories into a true 3D Saturn scene where each repo becomes an orbiting meteoroid.
             </p>
           </div>
 
           <ComponentDocsWorkbench files={files}>
             <GitSaturn
-              username={demoGitSaturnData.username}
-                width={720}
-                height={420}
+              username={saturnData.username}
+              width={720}
+              height={420}
               interactive
-                repos={demoGitSaturnData.repos}
+              repos={saturnData.repos}
             />
           </ComponentDocsWorkbench>
 
           <div className='space-y-2'>
-            <h2 className='text-sm font-medium'>Usage Example</h2>
+            <h2 className='text-lg font-medium'>Usage Example</h2>
+            <p className='text-base '>
+              Import paths may vary depending on your project structure.
+            </p>
+            <p className='text-base '>
+              Make sure to add your GitHub token to your environment (for example in a <code>.env</code> file):
+              <br />
+              <span className='font-mono bg-secondary text-secondary-foreground px-1.5 py-0.5 rounded text-sm'>GITHUB_TOKEN=your_personal_access_token</span>
+              {' '} do not commit this value to source control.
+            </p>
             <HighlightedCodeBox code={gitSaturnUsageCode} lang='tsx' />
           </div>
         </section>
@@ -82,7 +114,7 @@ async function page() {
         <section className='space-y-4'>
           <div className='max-w-2xl'>
             <h2 className='text-2xl font-semibold tracking-tight'>Props Reference</h2>
-            <p className='mt-2 text-sm text-muted-foreground'>
+            <p className='mt-2 text-base '>
               All props supported by GitSaturn for contribution-driven visuals.
             </p>
           </div>

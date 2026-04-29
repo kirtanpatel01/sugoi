@@ -1,20 +1,18 @@
 export const gitSaturnUsageCode = `import GitSaturn from '@/components/custom/git-saturn'
+import { getGitSaturnDataAction } from '@/app/components/hero-section/git-saturn/actions'
 
-export default function Example() {
+export default async function Example() {
+  const saturnData = await getGitSaturnDataAction({
+    includeCommitCounts: true,
+  })
+
   return (
     <GitSaturn
-      username="satvik.dev"
+      username={saturnData.username}
       width={720}
       height={420}
       interactive
-      repos={[
-        { name: 'design-system', commits: 312, stars: 940, lastActivity: '2 days ago' },
-        { name: 'portfolio-site', commits: 198, stars: 620, lastActivity: '5 days ago' },
-        { name: 'animation-kit', commits: 164, stars: 470, lastActivity: '1 week ago' },
-        { name: 'ui-experiments', commits: 122 },
-        { name: 'content-engine', commits: 86 },
-        { name: 'shared-utils', commits: 64 },
-      ]}
+      repos={saturnData.repos}
     />
   )
 }`

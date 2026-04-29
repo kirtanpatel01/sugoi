@@ -1,10 +1,10 @@
 'use client'
 
-import { Meteoroid } from '@/components/custom/git-saturn/git-meteoroid'
+import { Meteoroid } from './git-meteoroid'
 import { useFrame } from '@react-three/fiber'
 import React from 'react'
 import * as THREE from 'three'
-import type { GitSaturnRepo } from './types'
+import type { GitSaturnRepo } from '@/app/components/hero-section/git-saturn/types'
 
 function seeded(seed: number) {
   const x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453123

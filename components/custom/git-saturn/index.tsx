@@ -4,9 +4,9 @@ import { cn } from '@/lib/utils'
 import { Canvas } from '@react-three/fiber'
 import React from 'react'
 import { SaturnScene } from './saturn-scene'
-import type { GitSaturnProps, GitSaturnRepo } from './types'
+import type { GitSaturnProps, GitSaturnRepo } from '@/app/components/hero-section/git-saturn/types'
 
-export type { GitSaturnRepo, GitSaturnProps } from './types'
+export type { GitSaturnRepo, GitSaturnProps } from '@/app/components/hero-section/git-saturn/types'
 
 export default function GitSaturn({
   repos,
