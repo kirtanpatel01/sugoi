@@ -15,6 +15,7 @@ import path from 'node:path'
 import { gitSaturnPropGroups } from './props-data'
 import { gitSaturnUsageCode } from './code-examples'
 import { getGitSaturnDataAction } from './actions'
+import { IconInfoCircle } from '@tabler/icons-react'
 
 const gitSaturnDocsFiles = [
   { path: 'components/custom/git-saturn/index.tsx', lang: 'tsx', group: 'Component' },
@@ -98,14 +99,14 @@ async function page() {
 
           <div className='space-y-2'>
             <h2 className='text-lg font-medium'>Usage Example</h2>
-            <p className='text-base '>
+            <p className='flex gap-2 items-center bg-amber-50 text-amber-600 border border-amber-400 px-2 py-1 rounded-sm text-sm w-fit dark:bg-amber-950 dark:text-amber-500 dark:border-amber-900'>
+              <IconInfoCircle size={16} />
               Import paths may vary depending on your project structure.
             </p>
             <p className='text-base '>
               Make sure to add your GitHub token to your environment (for example in a <code>.env</code> file):
-              <br />
+              {/* <br /> */}
               <span className='font-mono bg-secondary text-secondary-foreground px-1.5 py-0.5 rounded text-sm'>GITHUB_TOKEN=your_personal_access_token</span>
-              {' '} do not commit this value to source control.
             </p>
             <HighlightedCodeBox code={gitSaturnUsageCode} lang='tsx' />
           </div>

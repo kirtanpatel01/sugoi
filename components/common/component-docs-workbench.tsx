@@ -4,6 +4,7 @@ import React from 'react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { codeToHtml } from 'shiki'
+import { cn } from '@/lib/utils'
 
 const SHIKI_THEME = 'tokyo-night' as const
 
@@ -140,7 +141,7 @@ export function ComponentDocsWorkbench({ files, children }: ComponentDocsWorkben
             <div className="space-y-3">
               {groupedFiles.map((group) => (
                 <div key={group.title} className="space-y-1">
-                  <p className="px-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/80">
+                  <p className="px-1 text-xs font-semibold tracking-wide text-muted-foreground/80">
                     {group.title}
                   </p>
                   {group.items.map((file) => (
@@ -148,11 +149,11 @@ export function ComponentDocsWorkbench({ files, children }: ComponentDocsWorkben
                       key={file.path}
                       type="button"
                       onClick={() => setSelectedPath(file.path)}
-                      className={
+                      className={cn("border border-transparent cursor-pointer",
                         selectedFile?.path === file.path
-                          ? 'w-full rounded-md border bg-background px-2 py-1 text-left text-xs'
-                          : 'w-full rounded-md px-2 py-1 text-left text-xs hover:bg-background/60'
-                      }
+                          ? 'w-full rounded-md border-border bg-secondary px-2 py-1 text-left'
+                          : 'w-full rounded-md px-2 py-1 text-left hover:bg-secondary/80'
+                      )}
                     >
                       <span className="flex items-center justify-between gap-2">
                         <span className="truncate">{getFileName(file.path)}</span>
