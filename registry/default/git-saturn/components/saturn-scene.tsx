@@ -21,6 +21,7 @@ export function SaturnScene({
   focusLocked,
   onFocusRepo,
   onClearFocus,
+  zoom = 1,
 }: {
   repos: GitSaturnRepo[]
   interactive: boolean
@@ -28,10 +29,26 @@ export function SaturnScene({
   focusLocked: boolean
   onFocusRepo: (repo: GitSaturnRepo | null, locked?: boolean) => void
   onClearFocus: (repo: GitSaturnRepo) => void
+  zoom?: number
 }) {
   const systemRef = React.useRef<THREE.Group>(null)
   const controlsRef = React.useRef<any>(null)
   const { camera } = useThree()
+  
+  React.useEffect(() => {
+    if (controlsRef.current) {
+      const currentPos = camera.position.clone()
+      const target = controlsRef.current.target.clone()
+      const direction = currentPos.sub(target).normalize()
+      const baseDistance = 6.35
+      const targetDistance = baseDistance / zoom
+      
+      const newPos = target.add(direction.multiplyScalar(targetDistance))
+      camera.position.copy(newPos)
+      controlsRef.current.update()
+    }
+  }, [zoom, camera])
+
   const repoCount = repos.length
   const ringRadius = 1.95 + clamp(repoCount * 0.02, 0, 0.8)
   const spinSpeed = 0.08 + repoCount * 0.003

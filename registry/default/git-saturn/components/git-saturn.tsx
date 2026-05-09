@@ -5,6 +5,9 @@ import { Canvas } from '@react-three/fiber'
 import React from 'react'
 import { GitSaturnProps, GitSaturnRepo } from '@/registry/default/git-saturn/lib/git-saturn.types'
 import { SaturnScene } from '@/registry/default/git-saturn/components/saturn-scene'
+import { Button } from '@/components/ui/button'
+import { ButtonGroup } from '@/components/ui/button-group'
+import { Plus, Minus, RotateCcw } from 'lucide-react'
 
 export default function GitSaturn({
   repos,
@@ -16,11 +19,13 @@ export default function GitSaturn({
   showUsername = true,
   showStats = true,
   showRepoDetails = true,
+  enableControls = true,
 }: GitSaturnProps) {
   const [focusState, setFocusState] = React.useState<{ repo: GitSaturnRepo | null; locked: boolean }>({
     repo: null,
     locked: false,
   })
+  const [zoom, setZoom] = React.useState(1)
   const repoCount = repos.length
   const totalCommits = repos.reduce((sum, repo) => sum + repo.commits, 0)
 
@@ -63,8 +68,38 @@ export default function GitSaturn({
                 setFocusState({ repo: null, locked: false })
               }
             }}
+            zoom={zoom}
           />
         </Canvas>
+
+        {enableControls && (
+          <ButtonGroup className="absolute bottom-4 right-4 z-10" orientation="vertical">
+            <Button 
+              variant="secondary" 
+              size="icon-xs" 
+              onClick={() => setZoom(prev => Math.min(prev + 0.2, 3))} 
+              title="Zoom In"
+            >
+              <Plus />
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="icon-xs" 
+              onClick={() => setZoom(prev => Math.max(prev - 0.2, 0.2))} 
+              title="Zoom Out"
+            >
+              <Minus />
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="icon-xs" 
+              onClick={() => setZoom(1)} 
+              title="Reset Zoom"
+            >
+              <RotateCcw />
+            </Button>
+          </ButtonGroup>
+        )}
 
         {showUsername && (
           <div className="pointer-events-none absolute left-4 top-4 rounded-full border bg-background/85 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur">

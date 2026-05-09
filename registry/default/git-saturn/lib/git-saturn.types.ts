@@ -15,6 +15,7 @@ export interface GitSaturnProps {
   showUsername?: boolean
   showStats?: boolean
   showRepoDetails?: boolean
+  enableControls?: boolean
 }
 
 export type GitHubSaturnRawRepo = {
