@@ -78,6 +78,8 @@ export function Meteoroid({
         color="#9ca3af"
         roughness={0.92}
         metalness={0.04}
+        emissive="#1e293b"
+        emissiveIntensity={0.08}
       />
     </mesh>
   )

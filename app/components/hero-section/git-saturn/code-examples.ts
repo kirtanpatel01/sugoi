@@ -13,6 +13,9 @@ export default async function Example() {
       height={420}
       interactive
       repos={saturnData.repos}
+      showUsername={true}
+      showStats={true}
+      showRepoDetails={true}
     />
   )
 }`

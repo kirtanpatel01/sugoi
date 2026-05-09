@@ -1,5 +1,5 @@
-import type { PropsTableGroup } from '@/components/common/props-table'
-import { HeroSectionNode } from '@/components/custom/hero-image-callouts'
+import type { PropsTableGroup } from '@/components/props-table'
+import { HeroSectionNode } from '@/registry/default/hero-image-callouts/lib/hero-image-callouts.types'
 import { IconCircleCheckFilled, IconPlus } from '@tabler/icons-react'
 
 export const nodes = [

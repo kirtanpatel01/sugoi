@@ -1,7 +1,6 @@
-import GitSaturn from '@/components/custom/git-saturn'
-import { ComponentDocsWorkbench } from '@/components/common/component-docs-workbench'
-import { HighlightedCodeBox } from '@/components/common/highlighted-code-box'
-import { PropsTable } from '@/components/common/props-table'
+import { Workbench } from '@/components/workbench'
+import { CodeBox } from '@/components/code-box'
+import { PropsTable } from '@/components/props-table'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,25 +13,26 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { gitSaturnPropGroups } from './props-data'
 import { gitSaturnUsageCode } from './code-examples'
-import { getGitSaturnDataAction } from './actions'
 import { IconInfoCircle } from '@tabler/icons-react'
+import { getGitSaturnDataAction } from '@/registry/default/git-saturn/lib/git-saturn.actions'
+import GitSaturn from '@/registry/default/git-saturn/components/git-saturn'
 
 const gitSaturnDocsFiles = [
-  { path: 'components/custom/git-saturn/index.tsx', lang: 'tsx', group: 'Component' },
-  { path: 'app/components/hero-section/git-saturn/types.ts', lang: 'ts', group: 'Data Layer' },
-  { path: 'components/custom/git-saturn/saturn-scene.tsx', lang: 'tsx', group: 'Component' },
-  { path: 'components/custom/git-saturn/repo-ring.tsx', lang: 'tsx', group: 'Component' },
-  { path: 'components/custom/git-saturn/star-field.tsx', lang: 'tsx', group: 'Component' },
-  { path: 'components/custom/git-saturn/git-saturn-planet.tsx', lang: 'tsx', group: 'Component' },
-  { path: 'components/custom/git-saturn/git-meteoroid.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'registry/default/git-saturn/components/git-saturn.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'registry/default/git-saturn/lib/git-saturn.types.ts', lang: 'ts', group: 'Data Layer' },
+  { path: 'registry/default/git-saturn/components/saturn-scene.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'registry/default/git-saturn/components/repo-ring.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'registry/default/git-saturn/components/star-field.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'registry/default/git-saturn/components/git-saturn-planet.tsx', lang: 'tsx', group: 'Component' },
+  { path: 'registry/default/git-saturn/components/git-meteoroid.tsx', lang: 'tsx', group: 'Component' },
   {
-    path: 'app/components/hero-section/git-saturn/github-data.ts',
+    path: 'registry/default/git-saturn/lib/git-saturn.utils.ts',
     lang: 'ts',
     runtime: 'server' as const,
     group: 'Data Layer',
   },
   {
-    path: 'app/components/hero-section/git-saturn/actions.ts',
+    path: 'registry/default/git-saturn/lib/git-saturn.actions.ts',
     lang: 'ts',
     runtime: 'server' as const,
     group: 'Server Action',
@@ -87,15 +87,19 @@ async function page() {
             </p>
           </div>
 
-          <ComponentDocsWorkbench files={files}>
+          <Workbench files={files}>
             <GitSaturn
               username={saturnData.username}
-              width={720}
-              height={420}
+              // width={720}
+              // height={420}
               interactive
               repos={saturnData.repos}
+              // showUsername={false}
+              // showStats={false}
+              // showRepoDetails={false}
+              className='max-w-2xl w-full h-96'
             />
-          </ComponentDocsWorkbench>
+          </Workbench>
 
           <div className='space-y-2'>
             <h2 className='text-lg font-medium'>Usage Example</h2>
@@ -104,11 +108,11 @@ async function page() {
               Import paths may vary depending on your project structure.
             </p>
             <p className='text-base '>
-              Make sure to add your GitHub token to your environment (for example in a <code>.env</code> file):
+              Make sure to add your GitHub token to your environment (for example in a <code>.env</code> file): {" "}
               {/* <br /> */}
-              <span className='font-mono bg-secondary text-secondary-foreground px-1.5 py-0.5 rounded text-sm'>GITHUB_TOKEN=your_personal_access_token</span>
+              <span className='font-mono bg-secondary text-secondary-foreground px-1.5 py-0.5 rounded text-sm text-wrap'>GITHUB_TOKEN=your_personal_access_token</span>
             </p>
-            <HighlightedCodeBox code={gitSaturnUsageCode} lang='tsx' />
+            <CodeBox code={gitSaturnUsageCode} lang='tsx' />
           </div>
         </section>
 

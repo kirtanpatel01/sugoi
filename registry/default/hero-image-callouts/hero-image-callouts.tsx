@@ -1,90 +1,28 @@
 'use client'
 
-import { cn } from '@/lib/utils';
-import { motion, useAnimationFrame } from 'motion/react';
-import React from 'react'
-
-type NodeAnimationDirection = 'up-right' | 'up-left' | 'down-right' | 'down-left';
-
-type NodeAnimation = {
-  speed?: number;
-  direction?: NodeAnimationDirection;
-  bounce?: boolean;
-};
-
-export type HeroSectionNode = {
-  position: { top: number; left: number };
-  content: React.ReactNode;
-  isDraggable?: boolean
-  isAnimated?: boolean
-  animate?: NodeAnimation;
-};
-
-type HeroImageCalloutsProps = {
-  image: {
-    src: string;
-    alt: string;
-    height?: number;
-    width?: number;
-    classNmame?: string;
-  };
-  nodes?: HeroSectionNode[];
-  className?: string;
-};
-
-type NodePosition = HeroSectionNode['position'];
-
-type NodeVelocity = {
-  x: number;
-  y: number;
-};
-
-type DragState = {
-  index: number;
-  pointerId: number;
-  startX: number;
-  startY: number;
-  startPosition: NodePosition;
-};
-
-const DIRECTION_VECTOR: Record<NodeAnimationDirection, NodeVelocity> = {
-  'up-right': { x: 1, y: -1 },
-  'up-left': { x: -1, y: -1 },
-  'down-right': { x: 1, y: 1 },
-  'down-left': { x: -1, y: 1 },
-};
-
-function getAnimationConfig(node: HeroSectionNode): Required<NodeAnimation> | null {
-  if (!node.animate && !node.isAnimated) {
-    return null;
-  }
-
-  return {
-    speed: node.animate?.speed ?? 10,
-    direction: node.animate?.direction ?? 'down-right',
-    bounce: node.animate?.bounce ?? true,
-  };
-}
+import { cn, DIRECTION_VECTOR, getAnimationConfig } from '@/registry/default/hero-image-callouts/lib/hero-image-callouts.utils'
+import { motion, useAnimationFrame } from 'motion/react'
+import { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { 
+  DragState, 
+  HeroImageCalloutsProps, 
+  NodePosition, 
+  NodeVelocity 
+} from '@/registry/default/hero-image-callouts/lib/hero-image-callouts.types'
 
 export default function HeroImageCallouts({
-  image: {
-    src,
-    alt,
-    height,
-    width,
-    classNmame,
-  },
+  image: { src, alt, height, width, classNmame },
   nodes = [],
   className,
 }: HeroImageCalloutsProps) {
-  const [positions, setPositions] = React.useState<NodePosition[]>(() => nodes.map((node) => node.position))
-  const containerRef = React.useRef<HTMLDivElement | null>(null)
-  const nodeRefs = React.useRef<Array<HTMLDivElement | null>>([])
-  const dragStateRef = React.useRef<DragState | null>(null)
-  const velocitiesRef = React.useRef<NodeVelocity[]>([])
-  const hasAnimatedNodes = React.useMemo(() => nodes.some((node) => getAnimationConfig(node)), [nodes])
+  const [positions, setPositions] = useState<NodePosition[]>(() => nodes.map((node) => node.position))
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const nodeRefs = useRef<Array<HTMLDivElement | null>>([])
+  const dragStateRef = useRef<DragState | null>(null)
+  const velocitiesRef = useRef<NodeVelocity[]>([])
+  const hasAnimatedNodes = useMemo(() => nodes.some((node) => getAnimationConfig(node)), [nodes])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setPositions(nodes.map((node) => node.position))
     velocitiesRef.current = nodes.map((node, index) => {
       const animation = getAnimationConfig(node)
@@ -102,12 +40,12 @@ export default function HeroImageCallouts({
     })
   }, [nodes])
 
-  const imageStyle: React.CSSProperties = {
+  const imageStyle: CSSProperties = {
     ...(height ? { height: `${height}px` } : {}),
     ...(width ? { width: `${width}px` } : {}),
   }
 
-  const updatePositionFromPointer = React.useCallback((event: PointerEvent) => {
+  const updatePositionFromPointer = useCallback((event: PointerEvent) => {
     const dragState = dragStateRef.current
     const container = containerRef.current
 
@@ -124,14 +62,12 @@ export default function HeroImageCallouts({
 
     setPositions((currentPositions) =>
       currentPositions.map((position, index) =>
-        index === dragState.index
-          ? { top: nextTop, left: nextLeft }
-          : position
+        index === dragState.index ? { top: nextTop, left: nextLeft } : position
       )
     )
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handlePointerMove = (event: PointerEvent) => {
       if (dragStateRef.current?.pointerId !== event.pointerId) {
         return
@@ -241,22 +177,20 @@ export default function HeroImageCallouts({
   })
 
   return (
-    <div ref={containerRef} className={cn("relative block w-fit max-w-full overflow-visible", className)}>
-      <img 
-        src={src} 
-        alt={alt} 
-        className={cn("block h-auto max-w-full", classNmame)}
-        style={imageStyle}
-      />
+    <div ref={containerRef} className={cn('relative block w-fit max-w-full overflow-visible', className)}>
+      <img src={src} alt={alt} className={cn('block h-auto max-w-full', classNmame)} style={imageStyle} />
 
       {nodes.map((node, index) => (
         <motion.div
           key={`${node.position.top}-${node.position.left}`}
           className={cn(
-            "absolute -translate-x-1/2 -translate-y-1/2 z-10",
-            node.isDraggable && "cursor-grab active:cursor-grabbing touch-none"
+            'absolute -translate-x-1/2 -translate-y-1/2 z-10',
+            node.isDraggable && 'cursor-grab active:cursor-grabbing touch-none'
           )}
-          style={{ top: `${positions[index]?.top ?? node.position.top}%`, left: `${positions[index]?.left ?? node.position.left}%` }}
+          style={{
+            top: `${positions[index]?.top ?? node.position.top}%`,
+            left: `${positions[index]?.left ?? node.position.left}%`,
+          }}
           transition={{ type: 'tween', ease: 'linear', duration: getAnimationConfig(node) ? 0 : 0.12 }}
           ref={(element) => {
             nodeRefs.current[index] = element

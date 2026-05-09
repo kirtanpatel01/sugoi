@@ -4,11 +4,11 @@ import { OrbitControls } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import React from 'react'
 import * as THREE from 'three'
-import { SaturnPlanet } from './git-saturn-planet'
-import type { GitSaturnRepo } from '@/app/components/hero-section/git-saturn/types'
-import { RepoRing } from './repo-ring'
-import { StarField } from './star-field'
+import { SaturnPlanet } from '@/registry/default/git-saturn/components/git-saturn-planet'
+import { RepoRing } from '@/registry/default/git-saturn/components/repo-ring'
 import { useThree } from '@react-three/fiber'
+import { GitSaturnRepo } from '@/registry/default/git-saturn/lib/git-saturn.types'
+import { StarField } from '@/registry/default/git-saturn/components/star-field'
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value))

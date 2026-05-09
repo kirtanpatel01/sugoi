@@ -9,7 +9,7 @@ import { codeToHtml } from 'shiki'
 
 const SHIKI_THEME = 'tokyo-night' as const
 
-interface ComponentPreviewProps {
+interface PreviewProps {
   children: React.ReactNode
   code: string
   lang?: string
@@ -34,7 +34,7 @@ function withLineNumbers(highlightedHtml: string) {
   return `${preOpen}${numberedCode}${preClose}`
 }
 
-export function ComponentPreview({ children, code, lang = 'tsx' }: ComponentPreviewProps) {
+export function Preview({ children, code, lang = 'tsx' }: PreviewProps) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {

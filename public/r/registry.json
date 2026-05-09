@@ -1,0 +1,102 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "sugoi",
+  "homepage": "https://sugoi.dev",
+  "description": "A modern component library with Japanese design aesthetics",
+  "items": [
+    {
+      "name": "hero-image-callouts",
+      "type": "registry:block",
+      "title": "Hero Image Callouts",
+      "description": "Animated callout nodes over images with drag and animation support. Perfect for highlighting key features on hero sections.",
+      "files": [
+        {
+          "path": "registry/default/hero-image-callouts/hero-image-callouts.tsx",
+          "type": "registry:component",
+          "target": "@components/hero-image-callouts.tsx"
+        },
+        {
+          "path": "registry/default/hero-image-callouts/lib/hero-image-callouts.utils.ts",
+          "type": "registry:lib",
+          "target": "@lib/hero-image-callouts.utils.ts"
+        },
+        {
+          "path": "registry/default/hero-image-callouts/lib/hero-image-callouts.types.ts",
+          "type": "registry:lib",
+          "target": "@lib/hero-image-callouts.types.ts"
+        }
+      ],
+      "dependencies": [
+        "clsx@^2.1.1",
+        "motion@^12.38.0",
+        "tailwind-merge@^3.5.0"
+      ]
+    },
+    {
+      "name": "git-saturn",
+      "type": "registry:block",
+      "title": "Git Saturn",
+      "description": "An interactive 3D Saturn visualization that displays GitHub repository data. Meteoroids represent commits, and the ring shows repository stars.",
+      "envVars": {
+        "GITHUB_TOKEN": ""
+      },
+      "files": [
+        {
+          "path": "registry/default/git-saturn/page.tsx",
+          "type": "registry:page",
+          "target": "app/git-saturn/page.tsx"
+        },
+        {
+          "path": "registry/default/git-saturn/components/git-saturn.tsx",
+          "type": "registry:component",
+          "target": "@components/git-saturn/index.tsx"
+        },
+        {
+          "path": "registry/default/git-saturn/components/saturn-scene.tsx",
+          "type": "registry:component",
+          "target": "@components/git-saturn/saturn-scene.tsx"
+        },
+        {
+          "path": "registry/default/git-saturn/components/star-field.tsx",
+          "type": "registry:component",
+          "target": "@components/git-saturn/star-field.tsx"
+        },
+        {
+          "path": "registry/default/git-saturn/components/git-meteoroid.tsx",
+          "type": "registry:component",
+          "target": "@components/git-saturn/git-meteoroid.tsx"
+        },
+        {
+          "path": "registry/default/git-saturn/components/git-saturn-planet.tsx",
+          "type": "registry:component",
+          "target": "@components/git-saturn/git-saturn-planet.tsx"
+        },
+        {
+          "path": "registry/default/git-saturn/components/repo-ring.tsx",
+          "type": "registry:component",
+          "target": "@components/git-saturn/repo-ring.tsx"
+        },
+        {
+          "path": "registry/default/git-saturn/lib/git-saturn.types.ts",
+          "type": "registry:lib",
+          "target": "@lib/git-saturn.types.ts"
+        },
+        {
+          "path": "registry/default/git-saturn/lib/git-saturn.utils.ts",
+          "type": "registry:lib",
+          "target": "@lib/git-saturn.utils.ts"
+        },
+        {
+          "path": "registry/default/git-saturn/lib/git-saturn.actions.ts",
+          "type": "registry:lib",
+          "target": "@lib/git-saturn.actions.ts"
+        }
+      ],
+      "dependencies": [
+        "@react-three/drei@^10.7.7",
+        "@react-three/fiber@^9.6.0",
+        "three@^0.184.0"
+      ]
+    }
+  ]
+}

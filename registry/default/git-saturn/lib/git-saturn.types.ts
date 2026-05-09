@@ -12,6 +12,9 @@ export interface GitSaturnProps {
   height?: number
   interactive?: boolean
   className?: string
+  showUsername?: boolean
+  showStats?: boolean
+  showRepoDetails?: boolean
 }
 
 export type GitHubSaturnRawRepo = {

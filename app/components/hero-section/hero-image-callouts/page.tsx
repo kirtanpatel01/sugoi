@@ -1,6 +1,5 @@
-import HeroImageCallouts from '@/components/custom/hero-image-callouts'
-import { HighlightedCodeBox } from '@/components/common/highlighted-code-box'
-import { PropsTable } from '@/components/common/props-table'
+import { CodeBox } from '@/components/code-box'
+import { PropsTable } from '@/components/props-table'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,7 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
-import { ComponentPreview } from '@/components/common/component-preview'
+import { Preview } from '@/components/preview'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { animatedNodes, combinedNodes, draggableNodes, nodes } from './data'
@@ -20,9 +19,10 @@ import {
   combinedUsageCode,
 } from './code-examples'
 import { heroImageCalloutsPropGroups } from './data'
+import HeroImageCallouts from '@/registry/default/hero-image-callouts/hero-image-callouts'
 
 async function page() {
-  const heroImageCalloutsPath = path.join(process.cwd(), 'components', 'custom', 'hero-image-callouts.tsx')
+  const heroImageCalloutsPath = path.join(process.cwd(), 'registry', 'default', 'hero-image-callouts', 'hero-image-callouts.tsx')
   const fixedPositionCode = await readFile(heroImageCalloutsPath, 'utf-8')
 
   return (
@@ -56,7 +56,7 @@ async function page() {
             </p>
           </div>
 
-          <ComponentPreview code={fixedPositionCode} lang="tsx">
+          <Preview code={fixedPositionCode} lang="tsx">
             <HeroImageCallouts
               image={{
                 src: "https://i.pinimg.com/1200x/c8/16/1b/c8161b685b3848fe8804be950ddbd02b.jpg",
@@ -67,11 +67,11 @@ async function page() {
               nodes={nodes}
               className="mx-auto"
             />
-          </ComponentPreview>
+          </Preview>
 
           <div className='space-y-2'>
             <h2 className='text-sm font-medium'>Usage Example</h2>
-            <HighlightedCodeBox code={fixedPositionUsageCode} lang="tsx" />
+            <CodeBox code={fixedPositionUsageCode} lang="tsx" />
           </div>
         </section>
 
@@ -100,7 +100,7 @@ async function page() {
             </div>
           </div>
 
-          <HighlightedCodeBox code={draggableUsageCode} lang="tsx" />
+          <CodeBox code={draggableUsageCode} lang="tsx" />
         </section>
 
         <section className='space-y-4'>
@@ -128,7 +128,7 @@ async function page() {
             </div>
           </div>
 
-          <HighlightedCodeBox code={animatedUsageCode} lang="tsx" />
+          <CodeBox code={animatedUsageCode} lang="tsx" />
         </section>
 
         <section className='space-y-4'>
@@ -156,7 +156,7 @@ async function page() {
             </div>
           </div>
 
-          <HighlightedCodeBox code={combinedUsageCode} lang="tsx" />
+          <CodeBox code={combinedUsageCode} lang="tsx" />
         </section>
 
         <section className='space-y-4'>

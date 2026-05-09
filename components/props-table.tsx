@@ -27,14 +27,14 @@ interface PropsTableProps {
 
 function PropsTableGrid({ rows }: { rows: PropsTableRow[] }) {
   return (
-    <div className="overflow-hidden rounded-lg border bg-background">
+    <div className="overflow-x-auto rounded-lg border bg-background">
       <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[18%] whitespace-normal">Prop</TableHead>
-          <TableHead className="w-[32%] whitespace-normal">Type</TableHead>
-          <TableHead className="w-[12%] whitespace-normal">Required</TableHead>
-          <TableHead className="whitespace-normal">Description</TableHead>
+          <TableHead className="min-w-[120px] whitespace-normal">Prop</TableHead>
+          <TableHead className="min-w-[200px] whitespace-normal">Type</TableHead>
+          <TableHead className="min-w-[100px] whitespace-normal">Required</TableHead>
+          <TableHead className="min-w-[250px] whitespace-normal">Description</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

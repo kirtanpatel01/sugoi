@@ -51,7 +51,7 @@ function ComponentSidebar() {
       style={{
         top: '3rem',
         bottom: 'auto',
-        height: 'calc(100svh - 4rem)',
+        // height: 'calc(100svh - 2rem)',
       }}
     >
       <SidebarContent>

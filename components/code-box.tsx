@@ -4,11 +4,12 @@ import { Check, Copy } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { codeToHtml } from 'shiki'
 import { cn } from '@/lib/utils'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { Button } from '@/components/ui/button'
 
 const SHIKI_THEME = 'tokyo-night' as const
 
-interface HighlightedCodeBoxProps {
+interface CodeBoxProps {
   code: string
   lang?: string
 }
@@ -32,7 +33,7 @@ function withLineNumbers(highlightedHtml: string) {
   return `${preOpen}${numberedCode}${preClose}`
 }
 
-export function HighlightedCodeBox({ code, lang = 'tsx' }: HighlightedCodeBoxProps) {
+export function CodeBox({ code, lang = 'tsx' }: CodeBoxProps) {
   const [highlightedHtml, setHighlightedHtml] = useState('')
   const [copied, setCopied] = useState(false)
 
@@ -76,25 +77,23 @@ export function HighlightedCodeBox({ code, lang = 'tsx' }: HighlightedCodeBoxPro
   if (highlightedHtml) {
     return (
       <div className="relative rounded-lg border overflow-hidden">
-        <button
+        <Button
+          variant="secondary"
+          size="icon-xs"
           onClick={handleCopy}
-          className={cn(
-            'absolute top-4 right-4 z-10 rounded-md p-2 transition-colors',
-            copied
-              ? 'bg-green-500/20 text-green-600'
-              : 'bg-muted text-muted-foreground hover:bg-muted/80'
-          )}
+          className="absolute top-4 right-4 z-10"
           title={copied ? 'Copied!' : 'Copy code'}
         >
           {copied ? <Check size={16} /> : <Copy size={16} />}
-        </button>
+        </Button>
 
         <div className="h-96 bg-black">
-          <ScrollArea style={{ height: '100%' }}>
+          <ScrollArea className="h-full w-full">
             <div
-              className="text-sm overflow-x-auto [&_pre]:m-0 [&_pre]:rounded-none [&_pre]:p-3 [&_code]:block [&_code_.code-line]:flex [&_code_.code-line]:min-h-6 [&_code_.code-line-number]:mr-4 [&_code_.code-line-number]:w-8 [&_code_.code-line-number]:shrink-0 [&_code_.code-line-number]:select-none [&_code_.code-line-number]:text-right [&_code_.code-line-number]:text-slate-500 [&_code_.code-line-content]:min-w-0 [&_code_.code-line-content]:flex-1"
+              className="text-sm [&_pre]:min-w-fit [&_pre]:m-0 [&_pre]:rounded-none [&_pre]:p-3 [&_code]:block [&_code_.code-line]:flex [&_code_.code-line]:min-h-6 [&_code_.code-line-number]:mr-4 [&_code_.code-line-number]:w-8 [&_code_.code-line-number]:shrink-0 [&_code_.code-line-number]:select-none [&_code_.code-line-number]:text-right [&_code_.code-line-number]:text-slate-500 [&_code_.code-line-content]:whitespace-pre"
               dangerouslySetInnerHTML={{ __html: highlightedHtml }}
             />
+            <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
       </div>
@@ -123,7 +122,7 @@ export function HighlightedCodeBox({ code, lang = 'tsx' }: HighlightedCodeBoxPro
               {code.split('\n').map((line, index) => (
                 <span key={index} className="flex min-h-6">
                   <span className="mr-4 w-10 shrink-0 select-none text-right text-slate-500">{index + 1}</span>
-                  <span className="min-w-0 flex-1 whitespace-pre-wrap wrap-break-word">{line || ' '}</span>
+                  <span className="min-w-0 flex-1 whitespace-pre">{line || ' '}</span>
                 </span>
               ))}
             </code>

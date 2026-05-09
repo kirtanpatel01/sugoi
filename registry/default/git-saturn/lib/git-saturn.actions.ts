@@ -1,13 +1,13 @@
 'use server'
 
-import { mapGitHubDataToGitSaturn } from './github-data'
+import { mapGitHubDataToGitSaturn } from '@/registry/default/git-saturn/lib/git-saturn.utils'
 import type {
   FetchGitHubSaturnDataOptions,
   GetGitSaturnDataActionOptions,
   GitHubRepoApiItem,
   GitHubSaturnRawData,
   GitHubViewer,
-} from './types'
+} from '@/registry/default/git-saturn/lib/git-saturn.types'
 
 const DEFAULT_API_BASE = 'https://api.github.com'
 

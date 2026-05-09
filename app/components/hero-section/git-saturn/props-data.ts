@@ -1,4 +1,4 @@
-import type { PropsTableGroup } from '@/components/common/props-table'
+import type { PropsTableGroup } from '@/components/props-table'
 
 export const gitSaturnPropGroups: PropsTableGroup[] = [
   {
@@ -44,6 +44,24 @@ export const gitSaturnPropGroups: PropsTableGroup[] = [
         type: 'string',
         required: false,
         description: 'Custom classes for the outer wrapper.',
+      },
+      {
+        prop: 'showUsername',
+        type: 'boolean',
+        required: false,
+        description: 'Whether to show the username badge at the top left.',
+      },
+      {
+        prop: 'showStats',
+        type: 'boolean',
+        required: false,
+        description: 'Whether to show the total commits and repo count at the bottom.',
+      },
+      {
+        prop: 'showRepoDetails',
+        type: 'boolean',
+        required: false,
+        description: 'Whether to show the details of the focused repository at the top right.',
       },
     ],
     children: [

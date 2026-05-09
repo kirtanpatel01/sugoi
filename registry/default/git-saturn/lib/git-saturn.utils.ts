@@ -2,7 +2,7 @@ import type {
   GitHubSaturnRawData,
   GitSaturnRepo,
   MapGitHubToSaturnOptions,
-} from './types'
+} from '@/registry/default/git-saturn/lib/git-saturn.types'
 
 function formatRelativeTime(input: string | null): string | undefined {
   if (!input) return undefined
